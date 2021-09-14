@@ -1,24 +1,24 @@
-
+const axios = require('axios');
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt, GraphQLBoolean, GraphQLFloat, GraphQLList, GraphQLSchema } = require('graphql');
 
-const categories = [
-    { id: 1, name: 'Smart home', description: 'Everything you need for smart home' },
-    { id: 2, name: 'Furniture', description: 'Comfort first' },
-    { id: 3, name: 'Beds & mattresses', description: 'Sleep well' },
-    { id: 4, name: 'Storage & organization', description: 'Organize your space' },
-];
+// const categories = [
+//     { id: 1, name: 'Smart home', description: 'Everything you need for smart home' },
+//     { id: 2, name: 'Furniture', description: 'Comfort first' },
+//     { id: 3, name: 'Beds & mattresses', description: 'Sleep well' },
+//     { id: 4, name: 'Storage & organization', description: 'Organize your space' }
+// ];
 
-const products = [
-    { id: 1, name: 'SYMFONISK', description: 'WiFi bookshelf speaker, black', inStock: true, price: 99.00, categoryId: 1 },
-    { id: 2, name: 'MITTLED', description: 'LED ktchn drawer lighting w sensor, dimmable white23 "', inStock: true, price: 15.99, categoryId: 1 },
-    { id: 3, name: 'FYRTUR', description: 'Blackout roller blind, wireless/battery operated gray38x76 ¾ "', inStock: true, price: 169.00, categoryId: 1 },
-    { id: 4, name: 'FINNALA', description: 'Sofa with chaise, Totebo light beige', inStock: false, price: 799.00, categoryId: 2 },
-    { id: 5, name: 'KEDJEBO', description: 'Ottoman, yellow/beige', inStock: true, price: 99.00, categoryId: 2 },
-    { id: 5, name: 'OTTERÖN / INNERSKÄR', description: 'Pouffe, in/outdoor, dark green22 7/8 "', inStock: true, price: 69.99, categoryId: 2 },
-    { id: 6, name: 'MALM', description: 'High bed frame/4 storage boxes, black-brown/LuröyQueen', inStock: true, price: 349.00, categoryId: 3 },
-    { id: 7, name: 'BILLY', description: 'Bookcase, white31 1/2x11x79 1/2 "', inStock: true, price: 49.00, categoryId: 4 },
-    { id: 8, name: 'PÄRKLA', description: 'Pouffe, in/outdoor, dark green22 7/8 "', inStock: false, price: 1.99, categoryId: 4 },
-]
+// const products = [
+//     { id: 1, name: 'SYMFONISK', description: 'WiFi bookshelf speaker, black', inStock: true, price: 99.00, categoryId: 1 },
+//     { id: 2, name: 'MITTLED', description: 'LED ktchn drawer lighting w sensor, dimmable white23 "', inStock: true, price: 15.99, categoryId: 1 },
+//     { id: 3, name: 'FYRTUR', description: 'Blackout roller blind, wireless/battery operated gray38x76 ¾ "', inStock: true, price: 169.00, categoryId: 1 },
+//     { id: 4, name: 'FINNALA', description: 'Sofa with chaise, Totebo light beige', inStock: false, price: 799.00, categoryId: 2 },
+//     { id: 5, name: 'KEDJEBO', description: 'Ottoman, yellow/beige', inStock: true, price: 99.00, categoryId: 2 },
+//     { id: 5, name: 'OTTERÖN / INNERSKÄR', description: 'Pouffe, in/outdoor, dark green22 7/8 "', inStock: true, price: 69.99, categoryId: 2 },
+//     { id: 6, name: 'MALM', description: 'High bed frame/4 storage boxes, black-brown/LuröyQueen', inStock: true, price: 349.00, categoryId: 3 },
+//     { id: 7, name: 'BILLY', description: 'Bookcase, white31 1/2x11x79 1/2 "', inStock: true, price: 49.00, categoryId: 4 },
+//     { id: 8, name: 'PÄRKLA', description: 'Pouffe, in/outdoor, dark green22 7/8 "', inStock: false, price: 1.99, categoryId: 4 },
+// ]
 
 const CategoryType = new GraphQLObjectType({
     name: 'Category',
@@ -29,7 +29,11 @@ const CategoryType = new GraphQLObjectType({
         products: {
             type: GraphQLList(ProductType),
             resolve: (category) => {
-                return products.filter(product => product.categoryId === category.id);
+                return axios.get('http://localhost:3004/products')
+                    .then(res =>
+                        res.data.filter(product => product.categoryId === category.id));
+                //without json-server
+                //return products.filter(product => product.categoryId === category.id);
             }
         }
     })
