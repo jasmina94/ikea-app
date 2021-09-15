@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const path = require('path');
@@ -12,7 +13,7 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5001;
 
 app.listen(PORT, function () {
     console.log(`Server is running on ${PORT}`);

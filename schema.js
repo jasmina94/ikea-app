@@ -1,6 +1,9 @@
 const axios = require('axios');
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLInt, GraphQLBoolean, GraphQLFloat, GraphQLList, GraphQLSchema } = require('graphql');
 
+const CATEGORIES_URL = process.env.JSON_SERVER_PATH + ':' + process.env.JSON_SERVER_PORT + process.env.CATEGORIES_PATH;
+const PRODUCTS_URL = process.env.JSON_SERVER_PATH + ':' + process.env.JSON_SERVER_PORT + process.env.PRODUCTS_PATH;
+
 // const categories = [
 //     { id: 1, name: 'Smart home', description: 'Everything you need for smart home' },
 //     { id: 2, name: 'Furniture', description: 'Comfort first' },
@@ -29,9 +32,11 @@ const CategoryType = new GraphQLObjectType({
         products: {
             type: GraphQLList(ProductType),
             resolve: (category) => {
-                return axios.get('http://localhost:3004/products')
-                    .then(res =>
-                        res.data.filter(product => product.categoryId === category.id));
+                return axios.get(PRODUCTS_URL)
+                    .then(res => {
+                        const products = res.data;
+                        return products.filter(product => product.categoryId === category.id)
+                    });
                 //without json-server
                 //return products.filter(product => product.categoryId === category.id);
             }
@@ -51,7 +56,12 @@ const ProductType = new GraphQLObjectType({
         category: {
             type: CategoryType,
             resolve: (product) => {
-                return categories.find(category => category.id === product.category_id)
+                return axios.get(CATEGORIES_URL)
+                    .then(res => {
+                        const categories = res.data;
+                        return categories.find(category => category.id === product.categoryId);
+                    });
+                //return categories.find(category => category.id === product.categoryId)
             }
         }
     })
@@ -64,20 +74,32 @@ const RootQueryType = new GraphQLObjectType({
         categories: {
             type: GraphQLList(CategoryType),
             description: 'List of all categories',
-            resolve: () => categories
+            resolve: () => {
+                return axios.get(CATEGORIES_URL)
+                    .then(res => res.data);
+            }
         },
         products: {
             type: GraphQLList(ProductType),
             description: 'List of all products',
-            resolve: () => products
+            resolve: () => {
+                return axios.get(PRODUCTS_URL)
+                    .then(res => res.data);
+            }
         },
         category: {
             type: CategoryType,
             description: 'Get single category',
             args: {
-                id: { type: GraphQLInt }
+                id: { type: GraphQLNonNull(GraphQLString) }
             },
-            resolve: (parent, args) => categories.find(category => category.id === args.id)
+            resolve: (parent, args) => {
+                return axios.get(CATEGORIES_URL + '?id=' + args.id)
+                    .then(res => {
+                        console.log(res.data);
+                        return res.data
+                    });
+            }
         },
         product: {
             type: ProductType,
@@ -85,7 +107,10 @@ const RootQueryType = new GraphQLObjectType({
             args: {
                 id: { type: GraphQLInt }
             },
-            resolve: (parent, args) => products.find(product => product.id === args.id)
+            resolve: (parent, args) => {
+                return axios.get(PRODUCTS_URL + '?id=' + args.id)
+                    .then(res => res.data);
+            }
         }
     })
 });
