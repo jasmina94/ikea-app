@@ -24,6 +24,11 @@
       "id": 5,
       "name": "Bathroom",
       "description": "Make your own spa and enjoy in your time"
+    },
+    {
+      "id": 6,
+      "name": "Bla",
+      "description": ""
     }
   ],
   "products": [
@@ -106,6 +111,14 @@
       "inStock": true,
       "price": 12.99,
       "categoryId": 5
+    },
+    {
+      "id": 10,
+      "name": "BlaBlaChangeeee",
+      "description": "",
+      "inStock": false,
+      "price": 101.12,
+      "categoryId": 6
     }
   ]
 }

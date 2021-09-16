@@ -67,8 +67,8 @@ const mutations = {
                     if (res.data) {
                         let product = res.data[0];
                         product.name = args.name;
-                        product.description = args.description ?? '';
-                        product.inStock = args.inStock ?? false;
+                        product.description = args.description ?? product.description;
+                        product.inStock = args.inStock ?? product.inStock;
                         product.price = args.price;
 
                         return axios.put(PRODUCTS_URL + '/' + args.id, product)

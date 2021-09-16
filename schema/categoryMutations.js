@@ -58,7 +58,7 @@ const mutations = {
                     if (res.data) {
                         let category = res.data[0];
                         category.name = args.name;
-                        category.description = args.description;
+                        category.description = args.description ?? category.description;
 
                         return axios.put(CATEGORIES_URL + '/' + args.id, category)
                             .then(res => {
