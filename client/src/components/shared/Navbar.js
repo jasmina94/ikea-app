@@ -8,7 +8,7 @@ export default function Navbar() {
         <>
             <div className="bg-dark d-flex flex-row" style={{ minHeight: '40px', justifyContent: 'center' }}>
                 <div style={{ color: 'white', display: 'flex', margin: '5px 10px 0' }}>
-                    <a href='/' alt='Available products' title='Check available products' style={{ textDecoration: 'none', color: 'white' }}>
+                    <a href='/available' alt='Available products' title='Check available products' style={{ textDecoration: 'none', color: 'white' }}>
                         <span className="mr-3" style={{ fontSize: '14px' }}>
                             <AiOutlineInfoCircle size={18} style={{ marginRight: '3px' }} />
                             Check available products
@@ -16,7 +16,7 @@ export default function Navbar() {
                     </a>
                 </div>
                 <div style={{ color: 'white', display: 'flex', margin: '5px 10px 0' }}>
-                    <a href='/' alt='Working hours' title='Working hours' style={{ textDecoration: 'none', color: 'white' }}>
+                    <a href='/workingHours' alt='Working hours' title='Working hours' style={{ textDecoration: 'none', color: 'white' }}>
                         <span className="mr-3" style={{ fontSize: '14px' }}>
                             <AiOutlineClockCircle size={18} style={{ marginRight: '3px' }} />
                             Working hours
@@ -24,7 +24,7 @@ export default function Navbar() {
                     </a>
                 </div>
                 <div style={{ color: 'white', display: 'flex', margin: '5px 10px 0' }}>
-                    <a href='/' alt='Support' title='Support' style={{ textDecoration: 'none', color: 'white' }}>
+                    <a href='/support' alt='Support' title='Support' style={{ textDecoration: 'none', color: 'white' }}>
                         <span className="mr-3" style={{ fontSize: '14px' }}>
                             <AiFillCustomerService size={18} style={{ marginRight: '3px' }} />
                             Support
@@ -54,12 +54,12 @@ export default function Navbar() {
                         </div>
                         <ul className="navbar-nav">
                             <li className="nav-item" style={{ margin: '0 5px' }}>
-                                <a href='/profile' title='Cart' style={{ textDecoration: 'none', color: 'black' }}>
+                                <a href='/profile' title='Profile' style={{ textDecoration: 'none', color: 'black' }}>
                                     <GoPerson size={24} />
                                 </a>
                             </li>
                             <li className="nav-item" style={{ margin: '0 5px' }}>
-                                <a href='/favorite' title='Cart' style={{ textDecoration: 'none', color: 'black' }}>
+                                <a href='/favorite' title='Favorites' style={{ textDecoration: 'none', color: 'black' }}>
                                     <HiHeart size={24} />
                                 </a>
                             </li>

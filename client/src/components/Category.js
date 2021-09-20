@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function Category(props) {
+export default function Category({ category }) {
     return (
-        <div className="card border-primary mb-3" style={{ maxWidth: "20rem" }}>
-            <div className="card-header">{props.name}</div>
+        <div className="card border-primary m-3" style={{ minWidth: "20rem", minHeight: "5rem", width: "400px" }}>
             <div className="card-body">
-                <h4 className="card-title">Primary card title</h4>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h4 className="card-title">{category.name}</h4>
+                <p className="card-text">{category.description}</p>
+                <p><Link to={`/category/${category.id}/products`}>See products...</Link></p>
             </div>
         </div>
-
     )
 }
