@@ -29,6 +29,26 @@
       "id": 6,
       "name": "Bla",
       "description": ""
+    },
+    {
+      "id": 7,
+      "name": "Kitchen",
+      "description": "Supplies for kitchen"
+    },
+    {
+      "id": 8,
+      "name": "Test",
+      "description": ""
+    },
+    {
+      "id": 9,
+      "name": "Nova kategorija",
+      "description": "Neki opis"
+    },
+    {
+      "id": 10,
+      "name": "Nova kategorija jos jedna",
+      "description": "Neki opissssic"
     }
   ],
   "products": [

@@ -35,9 +35,11 @@ export default function Products() {
 
             {error && <p>Errror occured :(</p>}
 
-            {data && data.productByCategory.map((item) => {
+            {data && data.productByCategory.length !== 0 && data.productByCategory.map((item) => {
                 return <Product key={item.id} product={item} />
             })}
+
+            {data && data.productByCategory.length === 0 && <p>No products for this category.</p>}
         </div>
     )
 }
